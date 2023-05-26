@@ -3,6 +3,110 @@ body {
   padding: 0px;
   width: 100vw;
   height: 100vh;
+  overflow: hidden; 
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.removed {
+  display: none;
+}
+
+.board {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+
+.menu {
+  font-family: sans-serif;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.56);
+  transition: height .3s ease-in-out;
+  z-index: 999;
+}
+
+.more {
+  display:inline-block;
+  width:18px;
+  height:18px;
+  
+  background:
+    linear-gradient(#333 0 0),
+    linear-gradient(#333 0 0),
+    #fff;
+  background-position:center;
+  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}
+
+.less {
+  display:inline-block;
+  width:18px;
+  height:18px;
+  
+  background:
+    linear-gradient(#333 0 0),
+    #fff;
+  background-position:center;
+  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}
+
+.menu-closed {
+  height: 50px;
+}
+
+.menu-opened {
+  height: 200px;
+}
+
+.arrow {
+  text-align: center;
+  border: solid white;
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 4px;
+  transform: rotate(-135deg);
+  margin-left:10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.rotate {
+  animation: rotate 0.3s linear;
+  transform: rotate(45deg);
+}
+
+@keyframes rotate {
+  from { transform: rotate(-135deg); }
+  to { transform: rotate(45deg); }
+}
+
+.menu-container {
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  right: 0px;
+}
+
+.option-container {
+  top: 0px;
+}
+
+.number-of-dices-container {
+  top: 50px;
+}
+
+.menu-title {
+  position: inherit;
+  right: 20px;
+  top: 15px;
+  font-size: 20px;
 }
 
 .container {
@@ -10,6 +114,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 150px;
+  width: 120px;
+  background-color: transparent;
 }
 
 .scene {
@@ -17,7 +124,7 @@ body {
   height: 100%;
   perspective: 800px;
   position: relative;
-  background-color: black;
+  background-color: transparent;
 }
 
 .dice {
