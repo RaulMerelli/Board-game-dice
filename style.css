@@ -1,3 +1,13 @@
+:root {
+  --face-color1: rgba(255,255,0,1);
+  --face-color2: rgba(229,229,0,1); 
+  --face-color3: rgba(163,163,0,1); 
+  --inner-face-color1: rgba(190,190,0,1); 
+  --dot-color1: rgba(255,255,255,1);
+  --dot-color2: rgba(229,229,229,1);
+  --dot-color3: rgba(163,163,163,1);
+}
+
 body {
   margin: 0px;
   padding: 0px;
@@ -31,31 +41,97 @@ body {
   z-index: 999;
 }
 
-.more {
+.menu-item {
   display:inline-block;
-  width:18px;
-  height:18px;
-  
+  width:22px;
+  height:22px;
+}
+
+.more-btn {
   background:
     linear-gradient(#333 0 0),
     linear-gradient(#333 0 0),
     #fff;
   background-position:center;
-  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-size: 50% 3px,3px 50%; /*thickness = 2px, length = 50% (25px)*/
   background-repeat:no-repeat;
 }
 
-.less {
-  display:inline-block;
-  width:18px;
-  height:18px;
-  
+.less-btn {
   background:
     linear-gradient(#333 0 0),
     #fff;
   background-position:center;
-  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-size: 50% 3px,3px 50%; /*thickness = 2px, length = 50% (25px)*/
   background-repeat:no-repeat;
+}
+
+.next-btn {
+  background-color: #fff;
+  position: relative;
+}
+
+.next-btn::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  background-color: #333;
+  width: 1px;
+  height: 6px;
+  margin-top: 4px;
+  border-top: 2px solid transparent;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid transparent;
+  transform: rotate(-45deg);
+}
+
+.next-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #333;
+  width: 1px;
+  height: 6px;
+  margin-top: -2px;
+  border-top: 2px solid transparent;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid transparent;
+  transform: rotate(45deg);
+}
+
+.prev-btn {
+  background-color: #fff;
+  position: relative;
+}
+
+.prev-btn::before {
+  content: '';
+  position: absolute;
+  left: 40%;
+  background-color: #333;
+  width: 1px;
+  height: 6px;
+  margin-top: 4px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid transparent;
+  transform: rotate(45deg);
+}
+
+.prev-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  background-color: #333;
+  width: 1px;
+  height: 6px;
+  margin-top: -2px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid transparent;
+  transform: rotate(-45deg);
 }
 
 .menu-closed {
@@ -64,6 +140,13 @@ body {
 
 .menu-opened {
   height: 200px;
+}
+
+.label {
+  text-align: center;
+  display:inline-block;
+  width:22px;
+  height:22px;
 }
 
 .arrow {
@@ -98,8 +181,12 @@ body {
   top: 0px;
 }
 
-.number-of-dices-container {
+.number-of-dice-container {
   top: 50px;
+}
+
+.color-of-dice-container {
+  top: 100px;
 }
 
 .menu-title {
@@ -111,11 +198,9 @@ body {
 
 .container {
   position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   height: 150px;
-  width: 120px;
+  width: 110px;
   background-color: transparent;
 }
 
@@ -149,22 +234,20 @@ body {
 .face {
   width: 200px;
   height: 200px;
-  background-color: red;
   text-align: center;
   line-height: 200px;
   font-size: 48px;
   font-weight: bold;
   position: absolute;
   border-radius: 40px;
-  background: rgb(255,0,0);
-  background: radial-gradient(circle, rgba(255,0,0,1) 0%, rgba(229,0,0,1) 60%, rgba(163,0,0,1) 100%);
+  background: radial-gradient(circle, var(--face-color1) 0%, var(--face-color2) 60%, var(--face-color3) 100%);
 }
 
 .internal-face {
   position: absolute;
   top: 1px;
   left: 1px;
-  background-color: #AD0000;
+  background-color: var(--inner-face-color1);
   width: 198px;
   height: 198px;
   border-radius: 5px;
@@ -230,10 +313,7 @@ body {
   height: 25px;
   border-radius: 50%;
   position: absolute;
-  /*background-color: #fff;*/
-  background: rgb(255,255,255);
-  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 50%, rgba(163,163,163,1) 100%);
-  
+  background: radial-gradient(circle, var(--dot-color1) 0%, var(--dot-color2) 50%, var(--dot-color3) 100%);
 }
 
 .dot-center {

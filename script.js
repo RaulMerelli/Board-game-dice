@@ -3,43 +3,23 @@
 const body = document.querySelector('body');
 const board = document.querySelector('.board');
 const optionsContainer = document.querySelector('.option-container');
-const numberOfDicesContainer = document.querySelector('.number-of-dices-container');
 const rotationDecrement = 1.01; // Speed decrement
 const initialRotationIncrement = 24;
 const throwingEnabled = true;
 const movingEnabled = true;
-var numberOfDices = 1;
 let isAnimating = false;
 
 board.addEventListener('click', handleCubeClick);
 optionsContainer.addEventListener('click', handleOptionClick);
-numberOfDicesContainer.querySelector('.more').addEventListener('click', moreDicesClick);
-numberOfDicesContainer.querySelector('.less').addEventListener('click', lessDicesClick);
-
-function moreDicesClick() {
-  if (numberOfDices<10) {
-    numberOfDices++;
-    numberOfDicesContainer.querySelector('.label').innerHTML = numberOfDices;
-  }
-}
-
-function lessDicesClick() {
-  if (numberOfDices>0) {
-    numberOfDices--;
-    numberOfDicesContainer.querySelector('.label').innerHTML = numberOfDices;
-  }
-}
 
 function handleOptionClick() {
   const menu = document.getElementsByClassName("menu")[0];
-  if (menu.classList.contains("menu-opened"))
-  {
+  if (menu.classList.contains("menu-opened")) {
     menu.getElementsByClassName("arrow")[0].classList.remove('rotate');
     menu.classList.remove("menu-opened");
     menu.classList.add("menu-closed");
   } 
-  else if (menu.classList.contains("menu-closed"))
-  {
+  else if (menu.classList.contains("menu-closed")) {
     menu.getElementsByClassName("arrow")[0].classList.add('rotate');
     menu.classList.remove("menu-closed");
     menu.classList.add("menu-opened");
@@ -47,7 +27,6 @@ function handleOptionClick() {
 }
 
 function handleCubeClick() {
-  
   var containers = document.getElementsByClassName("container");
   var numContainers = containers.length;
 
@@ -58,19 +37,18 @@ function handleCubeClick() {
     }
   }
   
-  for (let i = containers.length - 1; i > numberOfDices; i--) {
+  for (let i = containers.length - 1; i > numberOfDice; i--) {
     containers[i].remove();
   }
 
-  for (let i = numContainers; i<=numberOfDices; i++)
-  {
+  for (let i = numContainers; i <= numberOfDice; i++) {
     const divOrigin = document.getElementsByClassName("container")[0];
     const divClone = divOrigin.cloneNode(true);
     divClone.classList.remove("hidden");
     board.appendChild(divClone);
   }
 
-  containers = document.getElementsByClassName("container");
+  containers = document.querySelectorAll('.container:not(.hidden)');
   numContainers = containers.length;
   const targetPositions = generateTargetPositions(numContainers);
 
@@ -148,21 +126,18 @@ function animate(facesToRotate, container, targetPosition) {
   let startTranslateX = 0;
   let startTranslateY = 0;
   let ratio = 0;
-  let animationId = 0;
   const cube = container.querySelector('.cube');
 
   const targetRotationX = currentRotationX + facesToRotate.x * 90;
   var targetRotationY = (currentRotationY + facesToRotate.y * 90);
   var targetRotationZ = (currentRotationZ + facesToRotate.z * 90);
-  if (targetRotationX%360==90 || targetRotationX%360==270) 
-  {
+  if (targetRotationX % 360 == 90 || targetRotationX % 360 == 270) {
     targetRotationY += Math.ceil(Math.random() * 85);
-    targetRotationZ += 360 - currentRotationZ%360;
+    targetRotationZ += 360 - currentRotationZ % 360;
   }
-  if (targetRotationX%360==180 || targetRotationX%360==0) 
-  {
+  if (targetRotationX % 360 == 180 || targetRotationX % 360 == 0) {
     currentRotationZ += Math.ceil(Math.random() * 85);
-    targetRotationY += 360 - currentRotationY%360;
+    targetRotationY += 360 - currentRotationY % 360;
   }
 
   const targetTranslateX = targetPosition.x;
@@ -194,12 +169,8 @@ function animate(facesToRotate, container, targetPosition) {
     if (currentRotationZ < targetRotationZ) currentRotationZ += rotationIncrement;
     cube.style.transform = `translateZ(${translateZ}px) rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg) rotateZ(${currentRotationZ}deg)`;
 
-    if (
-      currentRotationX < targetRotationX ||
-      currentRotationY < targetRotationY ||
-      currentRotationZ < targetRotationZ
-    ) {
-      animationId = requestAnimationFrame(animateRotation);
+    if (currentRotationX < targetRotationX || currentRotationY < targetRotationY || currentRotationZ < targetRotationZ) {
+      requestAnimationFrame(animateRotation);
     } else {
       currentRotationX = targetRotationX % 360;
       currentRotationY = targetRotationY % 360;
@@ -208,7 +179,7 @@ function animate(facesToRotate, container, targetPosition) {
       container.isAnimating = false;
     }
 
-    // Gradually decrease rotation speed
+    // Decrease rotation speed
     if (rotationIncrement / rotationDecrement > 16) {
       rotationIncrement /= rotationDecrement;
     }
