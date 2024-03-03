@@ -1,7 +1,7 @@
 "use strict";
 
 const body = document.querySelector('body');
-const board = document.querySelector('.board');
+const board = document.querySelector('.boardbg-out');
 const optionsContainer = document.querySelector('.option-container');
 const rotationDecrement = 1.01; // Speed decrement
 const initialRotationIncrement = 24;
@@ -135,8 +135,8 @@ function animate(facesToRotate, container, targetPosition) {
     targetRotationY += Math.ceil(Math.random() * 85);
     targetRotationZ += 360 - currentRotationZ % 360;
   }
-  if (targetRotationX % 360 == 180 || targetRotationX % 360 == 0) {
-    currentRotationZ += Math.ceil(Math.random() * 85);
+  if ((targetRotationX % 360 == 180 || targetRotationX % 360 == 0) && (targetRotationY % 360 == 180 || targetRotationY % 360 == 0)) {
+    targetRotationZ += 10 + Math.ceil(Math.random() * 75);
     targetRotationY += 360 - currentRotationY % 360;
   }
 
@@ -161,6 +161,10 @@ function animate(facesToRotate, container, targetPosition) {
       target = targetRotationY;
     }
     ratio = current / target;
+    if (current >= target)
+    {
+      ratio = 1;
+    }
     var translateZ = throwingEnabled ? (ratio * -2000.0) + 800 : -1200;
     if (movingEnabled)
       animateMovement();
@@ -192,5 +196,22 @@ function animate(facesToRotate, container, targetPosition) {
     currentTranslateY = ratio * translateYDiff + startTranslateY;
     container.style.left = `${currentTranslateX}px`;
     container.style.top = `${currentTranslateY}px`;
+    var shadowDist = 20 + (80 -(ratio * 80));
+    var shadow = container.querySelector('.scene').querySelector('.dice-shadow');
+    shadow.style.boxShadow = '0px 0px ' + shadowDist + 'px 40px';
+    var shadowRotation = 0;
+    if (targetRotationZ != 0 && targetRotationZ % 90 != 0) {
+      shadowRotation = Math.abs(targetRotationZ % 360);
+    }
+    else if (targetRotationY != 0 && targetRotationY % 90 != 0) {
+      shadowRotation = Math.abs(targetRotationY % 360);
+    }
+    
+    if ((targetRotationX % 360 == 270 || (targetRotationX % 360 + targetRotationY % 360) == 180) && shadowRotation > 0) {
+      // In those cases shadow has to be projected in opposite direction
+      shadowRotation *= -1;
+    }
+    shadowRotation *= ratio;
+    shadow.style.transform = 'rotateZ(' + shadowRotation + 'deg)';
   }
 }
