@@ -198,7 +198,7 @@ function animate(facesToRotate, container, targetPosition) {
     container.style.top = `${currentTranslateY}px`;
     var shadowDist = 20 + (80 -(ratio * 80));
     var shadow = container.querySelector('.scene').querySelector('.dice-shadow');
-    shadow.style.boxShadow = '0px 0px ' + shadowDist + 'px 40px';
+    shadow.style.boxShadow = '0px 0px ' + shadowDist + 'px 40px #000000ab';
     var shadowRotation = 0;
     if (targetRotationZ != 0 && targetRotationZ % 90 != 0) {
       shadowRotation = Math.abs(targetRotationZ % 360);

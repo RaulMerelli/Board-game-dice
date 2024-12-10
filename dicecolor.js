@@ -1,6 +1,6 @@
 "use strict";
 
-const colors = ['#E0151A', '#048E39', '#024492', '#D2B102', '#6F19CE', '#FF2E01', '#3A4044', '#EEE0D3'];
+const colors = ['#E0151A', '#048E39', '#024492', '#D2B102', '#6F19CE', '#FF2E01', '#3A4044', '#EEE0D3', '#93D543', '#F89518'];
 const colorOfDiceContainer = document.querySelector('.color-of-dice-container');
 const colorPreview = colorOfDiceContainer.querySelector('.color-preview');
 const prevButton = colorOfDiceContainer.querySelector('.prev-btn');

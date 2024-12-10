@@ -384,6 +384,6 @@ body {
   width: 0.005%;
   height: 0.005%;
   background-color: rgb(255, 0, 0);
-  box-shadow: 50px 100px 50px 40px;
+  box-shadow: 50px 100px 50px 40px #000000ab;
   transform: rotateZ(70deg);
 }
