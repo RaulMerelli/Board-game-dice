@@ -8,7 +8,7 @@
   --dot-color3: rgba(163,163,163,1);
 }
 
-body {
+body, html {
   margin: 0px;
   padding: 0px;
   width: 100vw;
@@ -193,6 +193,10 @@ body {
 
 .color-of-dice-container {
   top: 100px;
+}
+
+.bg-container {
+  top: 150px;
 }
 
 .menu-title {
