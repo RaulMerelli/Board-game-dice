@@ -27,31 +27,31 @@ function handleOptionClick() {
 }
 
 function handleCubeClick() {
-  var containers = document.getElementsByClassName("container");
+  var containers = document.querySelectorAll('.container:not(.hidden)');
   var numContainers = containers.length;
 
   for (let i = 0; i < numContainers; i++) {
     const element = containers[i];
     if (element.isAnimating) {
-      return; // Abort if any animation is already running
+      return;
     }
   }
-  
-  for (let i = containers.length - 1; i > numberOfDice; i--) {
+
+  for (let i = containers.length - 1; i >= numberOfDice; i--) {
     containers[i].remove();
   }
 
-  for (let i = numContainers; i <= numberOfDice; i++) {
-    const divOrigin = document.getElementsByClassName("container")[0];
+  for (let i = numContainers; i < numberOfDice; i++) {
+    const divOrigin = document.querySelector('.container.hidden'); 
     const divClone = divOrigin.cloneNode(true);
-    divClone.classList.remove("hidden");
+    divClone.classList.remove("hidden"); 
     board.appendChild(divClone);
   }
 
   containers = document.querySelectorAll('.container:not(.hidden)');
   numContainers = containers.length;
-  const targetPositions = generateTargetPositions(numContainers);
 
+  const targetPositions = generateTargetPositions(numContainers);
   for (let i = 0; i < numContainers; i++) {
     const element = containers[i];
     const targetPosition = targetPositions[i];
